@@ -1,17 +1,7 @@
-- name: mysql install
-  hosts: local
-  connection: local
-  become: yes
-  tasks: 
-  - name: Install mysql
-    ansible.builtin.package:
-     name: mysql-server
-     state: present
-
-  - name: run mysql
-    ansible.builtin.service:
-     name: mysqld
-     state: started
-     enabled: yes
-
-  
+- name: configure mysql server
+  hosts: mysql
+  become: yes #remote server
+  vars_files:
+  - /var/expense/credentials_mysql.yaml #ansible server
+  roles:
+  - mysql
